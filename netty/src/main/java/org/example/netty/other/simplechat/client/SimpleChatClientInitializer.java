@@ -1,4 +1,4 @@
-package org.example.netty.client.simplechat;
+package org.example.netty.other.simplechat.client;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;

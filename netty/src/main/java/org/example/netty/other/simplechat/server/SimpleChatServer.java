@@ -1,4 +1,4 @@
-package org.example.netty.server.simplechat;
+package org.example.netty.other.simplechat.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -6,7 +6,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.example.netty.client.simplechat.SimpleChatClient;
+import org.example.netty.other.simplechat.client.SimpleChatClient;
 
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;

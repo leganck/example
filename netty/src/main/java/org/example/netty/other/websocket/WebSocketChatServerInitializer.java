@@ -1,4 +1,4 @@
-package org.example.netty.server.websocket;
+package org.example.netty.other.websocket;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
