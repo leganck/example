@@ -5,14 +5,13 @@ import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import org.example.netty.client.echo.EchoClient;
 import org.example.netty.other.simplechat.server.SimpleChatServer;
+import org.example.netty.util.ConfigUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
-import java.util.logging.Logger;
 
 /**
  * 服务端 {@link SimpleChatServer}
@@ -21,7 +20,6 @@ import java.util.logging.Logger;
  * @date 2021/4/26 16:22
  **/
 public class SimpleChatClient {
-    private static final Logger log = Logger.getLogger(SimpleChatClient.class.getName());
 
     private final String host;
     private final int port;
@@ -32,18 +30,9 @@ public class SimpleChatClient {
     }
 
     public static void main(String[] args) {
-        if (args.length != 2) {
-            log.severe(
-                    "Usage: " + EchoClient.class.getSimpleName() +
-                            " <host> <port>");
-            return;
-        }
-
-        final String host = args[0];
-        final int port = Integer.parseInt(args[1]);
-
+        String host = ConfigUtil.getServerHost();
+        int port = ConfigUtil.getServerPort();
         new SimpleChatClient(host, port).run();
-
     }
 
     public void run() {

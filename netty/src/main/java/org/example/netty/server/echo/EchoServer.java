@@ -7,6 +7,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.example.netty.client.echo.EchoClient;
+import org.example.netty.util.ConfigUtil;
 
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;
@@ -26,11 +27,7 @@ public class EchoServer {
     }
 
     public static void main(String[] args) {
-        if (args.length != 1) {
-            log.severe(() -> "Usage: " + EchoServer.class.getSimpleName() + " <port>");
-            return;
-        }
-        int port = Integer.parseInt(args[0]);
+        int port = ConfigUtil.getServerPort();
         new EchoServer(port).start();
     }
 

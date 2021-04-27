@@ -8,9 +8,11 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.example.netty.client.time.v4.TimeClient;
+import org.example.netty.util.ConfigUtil;
 
 /**
- * 对应客户端 {@link org.example.netty.client.time.v4.TimeClient}
+ * 对应客户端 {@link TimeClient}
  *
  * @author leganck
  * @date 2021/4/26 8:47
@@ -23,12 +25,7 @@ public class TimeServer {
     }
 
     public static void main(String[] args) {
-        int port;
-        if (args.length > 0) {
-            port = Integer.parseInt(args[0]);
-        } else {
-            port = 8080;
-        }
+        int port = ConfigUtil.getServerPort();
         new TimeServer(port).run();
     }
 

@@ -8,17 +8,15 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.example.netty.util.ConfigUtil;
 
 import java.net.InetSocketAddress;
-import java.util.logging.Logger;
 
 /**
  * @author leganck
  * @date 2021/4/26 9:58
  **/
 public class TimeClient {
-
-    private static final Logger log = Logger.getLogger(TimeClient.class.getName());
     private final String host;
     private final Integer port;
 
@@ -28,16 +26,8 @@ public class TimeClient {
     }
 
     public static void main(String[] args) {
-        if (args.length != 2) {
-            log.severe(
-                    "Usage: " + TimeClient.class.getSimpleName() +
-                            " <host> <port>");
-            return;
-        }
-
-        final String host = args[0];
-        final int port = Integer.parseInt(args[1]);
-
+        String host = ConfigUtil.getServerHost();
+        int port = ConfigUtil.getServerPort();
         new TimeClient(host, port).run();
     }
 

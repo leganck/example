@@ -8,7 +8,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import org.example.netty.other.websocket.WebSocketChatServer;
 import org.example.netty.util.ConfigUtil;
 
 /**
@@ -23,8 +22,8 @@ public class HeartbeatServer {
     }
 
     public static void main(String[] args) {
-        int port = Integer.parseInt(ConfigUtil.readConfig(ConfigUtil.SERVER_PORT));
-        new WebSocketChatServer(port).run();
+        int port = ConfigUtil.getServerPort();
+        new HeartbeatServer(port).run();
     }
 
     public void run() {

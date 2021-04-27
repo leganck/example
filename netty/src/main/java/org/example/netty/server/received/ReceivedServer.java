@@ -8,6 +8,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.example.netty.util.ConfigUtil;
 
 /**
  * @author leganck
@@ -21,12 +22,7 @@ public class ReceivedServer {
     }
 
     public static void main(String[] args) {
-        int port;
-        if (args.length > 0) {
-            port = Integer.parseInt(args[0]);
-        } else {
-            port = 8080;
-        }
+        int port = ConfigUtil.getServerPort();
         new ReceivedServer(port).run();
     }
 

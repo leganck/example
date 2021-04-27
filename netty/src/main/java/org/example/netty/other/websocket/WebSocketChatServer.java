@@ -6,6 +6,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.example.netty.util.ConfigUtil;
 
 import java.util.logging.Logger;
 
@@ -22,12 +23,7 @@ public class WebSocketChatServer {
     }
 
     public static void main(String[] args) throws Exception {
-        int port;
-        if (args.length > 0) {
-            port = Integer.parseInt(args[0]);
-        } else {
-            port = 8080;
-        }
+        int port = ConfigUtil.getServerPort();
         new WebSocketChatServer(port).run();
 
     }

@@ -8,9 +8,9 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.example.netty.server.echo.EchoServer;
+import org.example.netty.util.ConfigUtil;
 
 import java.net.InetSocketAddress;
-import java.util.logging.Logger;
 
 /**
  * 服务端 {@link EchoServer}
@@ -19,7 +19,6 @@ import java.util.logging.Logger;
  * @date 2021/4/23 17:30
  **/
 public class EchoClient {
-    private static final Logger log = Logger.getLogger(EchoClient.class.getName());
 
     private final String host;
     private final int port;
@@ -30,16 +29,8 @@ public class EchoClient {
     }
 
     public static void main(String[] args) {
-        if (args.length != 2) {
-            log.severe(
-                    "Usage: " + EchoClient.class.getSimpleName() +
-                            " <host> <port>");
-            return;
-        }
-
-        final String host = args[0];
-        final int port = Integer.parseInt(args[1]);
-
+        String host = ConfigUtil.getServerHost();
+        int port = ConfigUtil.getServerPort();
         new EchoClient(host, port).run();
     }
 
