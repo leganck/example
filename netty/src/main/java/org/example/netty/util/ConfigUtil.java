@@ -14,6 +14,10 @@ public class ConfigUtil {
     public static final String SERVER_HOST = "server.host";
     public static final String CONFIG_FILE_NAME = "config.properties";
 
+    private ConfigUtil() {
+
+    }
+
     public static String readConfig(String key) {
 
         Properties properties = new Properties();
