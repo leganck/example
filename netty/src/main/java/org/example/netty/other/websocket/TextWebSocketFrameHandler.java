@@ -11,7 +11,7 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 import java.util.logging.Logger;
 
 /**
- * @author lailiqiang
+ * @author leganck
  * @date 2021/4/27 10:52
  **/
 public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {

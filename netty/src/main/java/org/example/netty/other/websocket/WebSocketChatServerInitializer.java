@@ -8,7 +8,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
- * @author lailiqiang
+ * @author leganck
  * @date 2021/4/27 11:19
  **/
 public class WebSocketChatServerInitializer extends ChannelInitializer<SocketChannel> {

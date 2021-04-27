@@ -10,7 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import java.util.logging.Logger;
 
 /**
- * @author lailiqiang
+ * @author leganck
  * @date 2021/4/27 11:23
  **/
 public class WebSocketChatServer {
