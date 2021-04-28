@@ -8,6 +8,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
+import org.example.netty.util.LogUtil;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ import java.util.logging.Logger;
 public class HeartbeatServerHandler extends ChannelInboundHandlerAdapter {
     private static final ByteBuf HEARTBEAT_SEQUENCE =
             Unpooled.wrappedUnmodifiableBuffer(Unpooled.copiedBuffer("Heartbeat", CharsetUtil.UTF_8));
-    private final Logger log = Logger.getLogger(this.getClass().getName());
+    private final Logger log = LogUtil.getLogger();
     private final Map<IdleState, String> idleStateMap = new EnumMap<>(IdleState.class);
 
     public HeartbeatServerHandler() {

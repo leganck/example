@@ -7,6 +7,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.example.netty.other.simplechat.client.SimpleChatClient;
+import org.example.netty.util.LogUtil;
 
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  * @date 2021/4/26 16:06
  **/
 public class SimpleChatServer {
-    private final Logger log = Logger.getLogger(this.getClass().getName());
+    private final Logger log = LogUtil.getLogger();
 
     private final int port;
 

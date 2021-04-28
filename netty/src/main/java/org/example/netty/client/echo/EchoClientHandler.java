@@ -6,6 +6,7 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
+import org.example.netty.util.LogUtil;
 
 import java.util.logging.Logger;
 
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  **/
 @ChannelHandler.Sharable
 public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
-    private final Logger log = Logger.getLogger(this.getClass().getName());
+    private final Logger log = LogUtil.getLogger();
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {

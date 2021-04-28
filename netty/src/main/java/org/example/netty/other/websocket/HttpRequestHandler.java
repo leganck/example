@@ -4,6 +4,7 @@ import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.stream.ChunkedNioFile;
+import org.example.netty.util.LogUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,8 @@ import java.util.logging.Logger;
  **/
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     private static final File INDEX;
+    private final Logger log = LogUtil.getLogger();
+    private final String wsUrl;
 
     static {
         URL location = HttpRequestHandler.class.getProtectionDomain().getCodeSource().getLocation();
@@ -30,8 +33,6 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         }
     }
 
-    private final Logger log = Logger.getLogger(this.getClass().getName());
-    private final String wsUrl;
 
     public HttpRequestHandler(String wsUrl) {
         this.wsUrl = wsUrl;

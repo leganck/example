@@ -3,6 +3,7 @@ package org.example.netty.client.time.v3;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import org.example.netty.util.LogUtil;
 
 import java.util.Date;
 import java.util.logging.Logger;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
  * @date 2021/4/26 10:01
  **/
 public class TimeClientHandler extends ChannelInboundHandlerAdapter {
-    private final Logger log = Logger.getLogger(this.getClass().getName());
+    private final Logger log = LogUtil.getLogger();
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {

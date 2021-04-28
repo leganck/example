@@ -7,6 +7,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.example.netty.util.ConfigUtil;
+import org.example.netty.util.LogUtil;
 
 import java.util.logging.Logger;
 
@@ -15,17 +16,16 @@ import java.util.logging.Logger;
  * @date 2021/4/27 11:23
  **/
 public class WebSocketChatServer {
-    private final Logger log = Logger.getLogger(WebSocketChatServer.class.getName());
+    private final Logger log = LogUtil.getLogger();
     private final int port;
 
     public WebSocketChatServer(int port) {
         this.port = port;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         int port = ConfigUtil.getServerPort();
         new WebSocketChatServer(port).run();
-
     }
 
     public void run() {

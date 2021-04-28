@@ -6,6 +6,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import org.example.netty.util.LogUtil;
 
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  * @date 2021/4/26 15:38
  **/
 public class SimpleChatServerInitializer extends ChannelInitializer<SocketChannel> {
-    private final Logger log = Logger.getLogger(this.getClass().getName());
+    private final Logger log = LogUtil.getLogger();
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
