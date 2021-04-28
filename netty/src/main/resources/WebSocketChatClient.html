@@ -3,10 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>WebSocket Chat</title>
-    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap-grid.css"
-          rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <form onsubmit="return false;">
+            <h3>WebSocket 聊天室：</h3>
+            <textarea class="form-control" id="responseText" rows="15"></textarea>
+            <br>
+            <div class="form-group">
+                <input name="message" placeholder="Welcome to WebSocketChat" style="width: 300px" type="text">
+                <button class="btn btn-primary" onclick="send(this.form.message.value)" type="button">发送消息</button>
+                <button class="btn btn-danger" onclick="document.getElementById('responseText').value=''"
+                        type="button">清空聊天记录
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 <script type="text/javascript">
     var socket;
     if (!window.WebSocket) {
@@ -41,23 +56,5 @@
         }
     }
 </script>
-<div class="container-fluid">
-
-
-    <form class="form-group has-success has-feedback" onsubmit="return false;">
-        <h3>WebSocket 聊天室：</h3>
-        <textarea id="responseText" style="width: 500px; height: 300px;"></textarea>
-        <br>
-        <div class="btn-group">
-            <input name="message" style="width: 300px" type="text" value="Welcome to WebSocketChat">
-            <button class="btn btn-default" onclick="send(this.form.message.value)" type="button">发送消息</button>
-            <button class="btn btn-default" onclick="document.getElementById('responseText').value=''"
-                    type="button">清空聊天记录
-            </button>
-        </div>
-    </form>
-    <br>
-    <br>
-</div>
 </body>
 </html>
