@@ -2,9 +2,12 @@ package org.example.netty.util;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.*;
 
 /**
@@ -16,14 +19,33 @@ import java.util.logging.*;
 public class LogUtil {
     public static final String LOGGER_NAME = "logger";
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
+    public static final Map<Level, String> levelMappings = new HashMap<>();
+
     static {
         Logger logger = Logger.getLogger(LOGGER_NAME);
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setFormatter(new LogFormatter());
-        logger.addHandler(consoleHandler);
-        //不向父记录器传递信息
-        logger.setUseParentHandlers(false);
+        Handler[] handlers = logger.getParent().getHandlers();
+        for (Handler handler : handlers) {
+            if (handler instanceof ConsoleHandler) {
+                handler.setFormatter(new LogFormatter());
+            }
+        }
         logger.setLevel(Level.ALL);
+    }
+
+    static {
+        levelMappings.put(Level.INFO, ANSI_GREEN);
+        levelMappings.put(Level.WARNING, ANSI_YELLOW);
+        levelMappings.put(Level.SEVERE, ANSI_RED);
     }
 
     private LogUtil() {
@@ -39,21 +61,45 @@ public class LogUtil {
     }
 
     static class LogFormatter extends Formatter {
-        // Create a DateFormat to format the logger timestamp.
-        private final DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss.SSS");
 
         @Override
         public String format(LogRecord record) {
             ThreadInfo threadInfo = ManagementFactory.getThreadMXBean().getThreadInfo(record.getThreadID());
-            StringBuilder builder = new StringBuilder(1000);
-            builder.append(df.format(new Date(record.getMillis()))).append(" - ");
-            builder.append("[").append(threadInfo.getThreadName()).append("] ");
-            builder.append(record.getLevel()).append(" ");
-            builder.append(record.getSourceClassName()).append(".");
-            builder.append(record.getSourceMethodName()).append(" - ");
-            builder.append(formatMessage(record));
-            builder.append("\n");
-            return builder.toString();
+            // date
+            String s = ANSI_WHITE + "%s\t" +
+                    // level
+                    "%s%s " +
+                    // thread name
+                    ANSI_WHITE + "--- [%s] " +
+                    // class name#function name
+                    ANSI_CYAN + "%s " +
+                    // message
+                    ANSI_WHITE + " : %s" +
+                    System.lineSeparator() + ANSI_RESET;
+            return String.format(s, getFormatStr(record.getMillis()),
+                    getLevelColor(record.getLevel()),
+                    record.getLevel(),
+                    threadInfo.getThreadName(),
+                    record.getSourceClassName() + "#" + record.getSourceMethodName(),
+                    record.getMessage());
+        }
+
+        private String getFormatStr(Long millis) {
+            return dateTimeFormatter.format(
+                    LocalDateTime.ofInstant(
+                            Instant.ofEpochMilli(millis),
+                            ZoneId.systemDefault()
+                    )
+            );
+        }
+
+        public String getLevelColor(Level level) {
+            String color = levelMappings.get(level);
+            return color == null ? ANSI_WHITE : color;
+
         }
     }
+
+
 }
